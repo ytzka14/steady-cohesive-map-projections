@@ -1,0 +1,12 @@
+.mainPlot {
+  display: flex;
+}
+
+.projectionSvg {
+  display: block;
+}
+
+.circle {
+	stroke: black;
+	fill: white;
+}
