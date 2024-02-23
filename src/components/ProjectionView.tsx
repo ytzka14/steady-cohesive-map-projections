@@ -8,9 +8,15 @@ const ProjectionView = (props: {raw: number[][], projection: string}) => {
   const size = 600;
   const margin = 15;
 
+	let [lmax, lmin] = [-180, 180];
+	for(const coord of props.raw) {
+		if(coord[1] > lmax) lmax = coord[1];
+		if(coord[1] < lmin) lmin = coord[1];
+	}
+
   const getCoord = (datum: number[]) => {
 		if(props.projection === "sinusoidal"){
-			const x = datum[1] * Math.cos(datum[0] * Math.PI / 180) * Math.PI / 180;
+			const x = (datum[1] - (lmax + lmin) / 2) * Math.cos(datum[0] * Math.PI / 180) * Math.PI / 180;
 			const y = datum[0] * Math.PI / 180;
 			return { x: x, y: y };
 		} else{

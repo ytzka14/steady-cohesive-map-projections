@@ -14,10 +14,11 @@ function knn(data: number[][], k: number, isGeodesic: boolean = false) {
 				for (let k = 0; k < data[0].length; k++) {
 					dist += Math.pow((data[i][k] - data[j][k]), 2);
 				}
+				knn.push([Math.sqrt(dist), j]);
 			} else {
 				dist += geodesicDistance(data[i][0], data[i][1], data[j][0], data[j][1]);
+				knn.push([dist, j]);
 			}
-			knn.push([Math.sqrt(dist), j]);
 		}
 		knn.sort((a, b) => a[0] - b[0]);
 		knn = knn.slice(1, k + 2).map(d => d[1]);
