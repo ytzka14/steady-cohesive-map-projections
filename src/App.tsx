@@ -1,6 +1,6 @@
 import "./App.css";
 import MainPlot from "./components/MainPlot";
-import RawJson from "./data/subway.json";
+import RawJson from "./data/alaskaairlines.json";
 
 function App() {	
   return (
