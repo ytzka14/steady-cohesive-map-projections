@@ -15,10 +15,12 @@ const ProjectionView = (props: {raw: number[][], projection: string}) => {
 	}
 
   const getCoord = (datum: number[]) => {
-		if(props.projection === "sinusoidal"){
+		if(props.projection === "Sinusoidal"){
 			const x = (datum[1] - (lmax + lmin) / 2) * Math.cos(datum[0] * Math.PI / 180) * Math.PI / 180;
 			const y = datum[0] * Math.PI / 180;
 			return { x: x, y: y };
+		} else if(props.projection === "Plate Carree"){
+			return { x: (datum[1] - (lmax + lmin) / 2) * Math.PI / 180, y: datum[0] * Math.PI / 180};
 		} else{
 			const x = datum[1] * Math.PI / 180;
 			const y = Math.log(Math.tan(Math.PI / 4 + (datum[0] * Math.PI / 360)))

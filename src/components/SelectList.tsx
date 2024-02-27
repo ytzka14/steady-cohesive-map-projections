@@ -1,23 +1,31 @@
 import { useState } from 'react';
 
-const SelectList = (props: {setProjection: React.Dispatch<React.SetStateAction<string>>}) => {
+const SelectList = (props: {data: string[], listText: string, onOptionClicked: (value: string) => void}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const onToggle = () => setIsOpen(!isOpen);
-  const onOptionClicked = (value: string) => () => {
-    props.setProjection(value);
-    setIsOpen(false);
-  };
+  const onToggle = () => {
+		setIsOpen(!isOpen);
+	}
+	const handleClick = (value: string) => {
+		props.onOptionClicked(value);
+		setIsOpen(false);
+	}
+
+	console.log(isOpen);
+	
   return (
     <>
       <div className="listbox" onClick={onToggle}>
-        <p>Select Projection</p>
+        <p>{props.listText}</p>
       </div>
       <div className="dropdown-wrapper">
         <ul className="dropdown-container">
           {isOpen && (
             <>
-              <li className="dropdown-component" onClick={onOptionClicked("mercator")}>Mercator</li>
-              <li className="dropdown-component" onClick={onOptionClicked("sinusoidal")}>Sinusoidal Equal-area</li>
+							{props.data.map((item, i) => {
+								return (
+									<li className="dropdown-component" key={i} onClick={()=>handleClick(item)}>{item}</li>)}
+								)
+							}
             </>
           )}
         </ul>
